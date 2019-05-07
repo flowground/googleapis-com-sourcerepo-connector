@@ -1,0 +1,121 @@
+{
+    "type": "object",
+    "properties": {
+        "name": {
+            "required": true,
+            "type": "string"
+        },
+        "access_token": {
+            "type": "string"
+        },
+        "alt": {
+            "type": "string",
+            "enum": [
+                "json",
+                "media",
+                "proto"
+            ],
+            "default": "json"
+        },
+        "callback": {
+            "type": "string"
+        },
+        "fields": {
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "uploadType": {
+            "type": "string"
+        },
+        "upload_protocol": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "Request for UpdateRepo.",
+            "properties": {
+                "repo": {
+                    "description": "The new configuration for the repository.",
+                    "properties": {
+                        "mirrorConfig": {
+                            "description": "How this repository mirrors a repository managed by another service.\nRead-only field.",
+                            "properties": {
+                                "deployKeyId": {
+                                    "description": "ID of the SSH deploy key at the other hosting service.\nRemoving this key from the other service would deauthorize\nGoogle Cloud Source Repositories from mirroring.",
+                                    "type": "string"
+                                },
+                                "url": {
+                                    "description": "URL of the main repository at the other hosting service.",
+                                    "type": "string"
+                                },
+                                "webhookId": {
+                                    "description": "ID of the webhook listening to updates to trigger mirroring.\nRemoving this webhook from the other hosting service will stop\nGoogle Cloud Source Repositories from receiving notifications,\nand thereby disabling mirroring.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "name": {
+                            "description": "Resource name of the repository, of the form\n`projects/<project>/repos/<repo>`.  The repo name may contain slashes.\neg, `projects/myproject/repos/name/with/slash`",
+                            "type": "string"
+                        },
+                        "pubsubConfigs": {
+                            "additionalProperties": {
+                                "description": "Configuration to publish a Cloud Pub/Sub message.",
+                                "properties": {
+                                    "messageFormat": {
+                                        "description": "The format of the Cloud Pub/Sub messages.",
+                                        "enum": [
+                                            "MESSAGE_FORMAT_UNSPECIFIED",
+                                            "PROTOBUF",
+                                            "JSON"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "serviceAccountEmail": {
+                                        "description": "Email address of the service account used for publishing Cloud Pub/Sub\nmessages. This service account needs to be in the same project as the\nPubsubConfig. When added, the caller needs to have\niam.serviceAccounts.actAs permission on this service account. If\nunspecified, it defaults to the compute engine default service account.",
+                                        "type": "string"
+                                    },
+                                    "topic": {
+                                        "description": "A topic of Cloud Pub/Sub. Values are of the form\n`projects/<project>/topics/<topic>`. The project needs to be the same\nproject as this config is in.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "description": "How this repository publishes a change in the repository through Cloud\nPub/Sub. Keyed by the topic names.",
+                            "type": "object"
+                        },
+                        "size": {
+                            "description": "The disk usage of the repo, in bytes. Read-only field. Size is only\nreturned by GetRepo.",
+                            "format": "int64",
+                            "type": "string"
+                        },
+                        "url": {
+                            "description": "URL to clone the repository from Google Cloud Source Repositories.\nRead-only field.",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "updateMask": {
+                    "description": "A FieldMask specifying which fields of the repo to modify. Only the fields\nin the mask will be modified. If no mask is provided, this request is\nno-op.",
+                    "format": "google-fieldmask",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    }
+}

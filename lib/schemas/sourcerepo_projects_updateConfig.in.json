@@ -1,0 +1,98 @@
+{
+    "type": "object",
+    "properties": {
+        "name": {
+            "required": true,
+            "type": "string"
+        },
+        "access_token": {
+            "type": "string"
+        },
+        "alt": {
+            "type": "string",
+            "enum": [
+                "json",
+                "media",
+                "proto"
+            ],
+            "default": "json"
+        },
+        "callback": {
+            "type": "string"
+        },
+        "fields": {
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "uploadType": {
+            "type": "string"
+        },
+        "upload_protocol": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "Request for UpdateProjectConfig.",
+            "properties": {
+                "projectConfig": {
+                    "description": "The new configuration for the project.",
+                    "properties": {
+                        "enablePrivateKeyCheck": {
+                            "description": "Reject a Git push that contains a private key.",
+                            "type": "boolean"
+                        },
+                        "name": {
+                            "description": "The name of the project. Values are of the form `projects/<project>`.",
+                            "type": "string"
+                        },
+                        "pubsubConfigs": {
+                            "additionalProperties": {
+                                "description": "Configuration to publish a Cloud Pub/Sub message.",
+                                "properties": {
+                                    "messageFormat": {
+                                        "description": "The format of the Cloud Pub/Sub messages.",
+                                        "enum": [
+                                            "MESSAGE_FORMAT_UNSPECIFIED",
+                                            "PROTOBUF",
+                                            "JSON"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "serviceAccountEmail": {
+                                        "description": "Email address of the service account used for publishing Cloud Pub/Sub\nmessages. This service account needs to be in the same project as the\nPubsubConfig. When added, the caller needs to have\niam.serviceAccounts.actAs permission on this service account. If\nunspecified, it defaults to the compute engine default service account.",
+                                        "type": "string"
+                                    },
+                                    "topic": {
+                                        "description": "A topic of Cloud Pub/Sub. Values are of the form\n`projects/<project>/topics/<topic>`. The project needs to be the same\nproject as this config is in.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "description": "How this project publishes a change in the repositories through Cloud\nPub/Sub. Keyed by the topic names.",
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "updateMask": {
+                    "description": "A FieldMask specifying which fields of the project_config to modify. Only\nthe fields in the mask will be modified. If no mask is provided, this\nrequest is no-op.",
+                    "format": "google-fieldmask",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    }
+}
